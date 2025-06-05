@@ -2,9 +2,9 @@
   font-family: 'iconfont';
   /* Project id 4528205 */
   src:
-    url('/fonts/iconfont.woff2?t=1716210197380') format('woff2'),
-    url('/fonts/iconfont.woff?t=1716210197380') format('woff'),
-    url('/fonts/iconfont.ttf?t=1716210197380') format('truetype');
+    url('/blog/fonts/iconfont.woff2?t=1716210197380') format('woff2'),
+    url('/blog/fonts/iconfont.woff?t=1716210197380') format('woff'),
+    url('/blog/fonts/iconfont.ttf?t=1716210197380') format('truetype');
 }
 
 .iconfont {

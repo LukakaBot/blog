@@ -17,11 +17,14 @@ import { site } from './src/config.json'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import swup from '@swup/astro'
+import { loadEnv } from 'vite'
+
+const { PUBLIC_APP_BASE_URL } = loadEnv(process.env.NODE_ENV, process.cwd(), '')
 
 // https://astro.build/config
 export default defineConfig({
   site: site.url,
-  base: '/blog',
+  base: PUBLIC_APP_BASE_URL,
   integrations: [
     tailwind(),
     react(),
