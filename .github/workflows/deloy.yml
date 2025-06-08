@@ -14,8 +14,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install and Build
@@ -28,17 +26,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      # - name: Deploy to GitHub Pages
-      #   id: deployment
-      #   uses: actions/deploy-pages@v4
-      - name: Deploy to website
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          git-config-name: Lukaka
-          git-config-email: monishine_code@163.com
-          token: ${{ secrets.MAKIMA_BOT_TOKEN }}
-          branch: main # The branch the action should deploy to.
-          folder: dist # The folder the action should deploy.
-          target-folder: docs/blog
-          clean: true # Automatically remove deleted files from the deploy branch
-          commit-message: update from Blog
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
