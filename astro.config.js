@@ -27,8 +27,8 @@ console.log(env.PUBLIC_APP_BASE_URL)
 // https://astro.build/config
 export default defineConfig({
   site: site.url,
-  // base: PUBLIC_APP_BASE_URL,
-  base: '/blog',
+  base: env.PUBLIC_APP_BASE_URL,
+  // base: '/blog',
   integrations: [
     tailwind(),
     react(),
