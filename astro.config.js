@@ -19,46 +19,48 @@ import rehypeKatex from 'rehype-katex'
 import swup from '@swup/astro'
 import { loadEnv } from 'vite'
 
-// https://astro.build/config
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd())
+const env = loadEnv(process.env.NODE_ENV, process.cwd(), '')
 
-  return {
-    site: site.url,
-    base: env.PUBLIC_APP_BASE_URL,
-    integrations: [
-      tailwind(),
-      react(),
-      sitemap(),
-      swup({
-        theme: false,
-        animationClass: 'swup-transition-',
-        containers: ['main'],
-        morph: ['[component-export="Provider"]'],
-      }),
+console.log(process.env.NODE_ENV)
+console.log(env.PUBLIC_APP_BASE_URL)
+
+// https://astro.build/config
+export default defineConfig({
+  site: site.url,
+  // base: PUBLIC_APP_BASE_URL,
+  base: '/blog',
+  integrations: [
+    tailwind(),
+    react(),
+    sitemap(),
+    swup({
+      theme: false,
+      animationClass: 'swup-transition-',
+      containers: ['main'],
+      morph: ['[component-export="Provider"]'],
+    }),
+  ],
+  markdown: {
+    syntaxHighlight: false,
+    smartypants: false,
+    remarkPlugins: [remarkMath, remarkDirective, remarkEmbed, remarkSpoiler, remarkReadingTime],
+    rehypePlugins: [
+      rehypeHeadingIds,
+      rehypeKatex,
+      rehypeLink,
+      rehypeImage,
+      rehypeHeading,
+      rehypeCodeBlock,
+      rehypeCodeHighlight,
+      rehypeTableBlock,
     ],
-    markdown: {
-      syntaxHighlight: false,
-      smartypants: false,
-      remarkPlugins: [remarkMath, remarkDirective, remarkEmbed, remarkSpoiler, remarkReadingTime],
-      rehypePlugins: [
-        rehypeHeadingIds,
-        rehypeKatex,
-        rehypeLink,
-        rehypeImage,
-        rehypeHeading,
-        rehypeCodeBlock,
-        rehypeCodeHighlight,
-        rehypeTableBlock,
-      ],
-      remarkRehype: { footnoteLabel: '参考', footnoteBackLabel: '返回正文' },
-    },
-    vite: {
-      build: {
-        rollupOptions: {
-          external: ['/pagefind/pagefind.js'],
-        },
+    remarkRehype: { footnoteLabel: '参考', footnoteBackLabel: '返回正文' },
+  },
+  vite: {
+    build: {
+      rollupOptions: {
+        external: ['/pagefind/pagefind.js'],
       },
     },
-  }
+  },
 })
